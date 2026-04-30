@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Natália Grassi Lash Beauty palette */
+    --background: 39 26% 90%;          /* #EDE8E0 sandy beige */
+    --foreground: 224 42% 20%;         /* #1E2A4A deep navy */
+
+    --card: 39 26% 92%;
+    --card-foreground: 224 42% 20%;
+
+    --popover: 39 26% 92%;
+    --popover-foreground: 224 42% 20%;
+
+    --primary: 224 42% 20%;            /* deep navy */
+    --primary-foreground: 39 26% 90%;  /* sandy beige */
+
+    --secondary: 32 22% 78%;           /* soft earth */
+    --secondary-foreground: 224 42% 20%;
+
+    --muted: 35 18% 82%;
+    --muted-foreground: 224 20% 35%;
+
+    --accent: 28 25% 70%;              /* warm terracotta-tinted */
+    --accent-foreground: 224 42% 20%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 39 26% 90%;
+
+    --border: 224 42% 20%;
+    --input: 224 30% 30%;
+    --ring: 224 42% 20%;
+
+    --radius: 9999px;
+
+    --font-display: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+
+    --shadow-soft: 0 8px 30px -12px hsl(224 42% 20% / 0.18);
+    --transition-elegant: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "liga", "dlig";
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-rotate {
+  to { --border-angle: 360deg; }
+}
+
+@layer components {
+  /* Rotating gradient border */
+  .rotating-border {
+    position: relative;
+    isolation: isolate;
+    background-color: hsl(var(--background));
+  }
+  .rotating-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    padding: 2.5px;
+    background: conic-gradient(
+      from var(--border-angle),
+      hsl(var(--foreground) / 0.1) 0deg,
+      hsl(var(--foreground)) 70deg,
+      hsl(var(--accent)) 150deg,
+      hsl(var(--foreground)) 230deg,
+      hsl(var(--foreground) / 0.1) 360deg
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    --border-angle: 0deg;
+    animation: border-rotate 5s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .rotating-border:hover::before,
+  .rotating-border:active::before {
+    animation-duration: 2s;
+  }
+
+  /* Fallback for browsers without @property support */
+  @supports not (background: conic-gradient(from var(--border-angle), red, blue)) {
+    .rotating-border::before {
+      background: conic-gradient(
+        from 0deg,
+        hsl(var(--foreground) / 0.1),
+        hsl(var(--foreground)),
+        hsl(var(--accent)),
+        hsl(var(--foreground)),
+        hsl(var(--foreground) / 0.1)
+      );
+      animation: spin-slow 5s linear infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rotating-border::before { animation: none; }
+  }
+}
