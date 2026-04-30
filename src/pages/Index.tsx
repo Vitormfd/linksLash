@@ -3,7 +3,7 @@ import { Instagram, MessageCircle, Sparkles, GraduationCap, AtSign } from "lucid
 const links = [
   {
     label: "Fale comigo no WhatsApp",
-    href: "https://wa.me/5574991277116?text=Ol%C3%A1!!%20Quero%20marcar%20meu%20hor%C3%A1rio%20💕",
+    href: "https://wa.me/5574991277116?text=Ol%C3%A1!!%20Quero%20marcar%20meu%20hor%C3%A1rio%20%E2%9D%A4%EF%B8%8F",
     icon: MessageCircle,
   },
   {
