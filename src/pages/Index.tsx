@@ -13,7 +13,7 @@ const links = [
   },
   {
     label: "Portfólio — Veja meus trabalhos",
-    href: "https://instagram.com/nataliagrssi",
+    href: "/catalogo-editorial.pdf",
     icon: Sparkles,
   },
   {
