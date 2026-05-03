@@ -18,7 +18,7 @@ const links = [
   },
   {
     label: "Curso Start Lash — Curso Profissional",
-    href: "#",
+    href: "/starlash_natalia.pdf",
     icon: GraduationCap,
   },
   {
